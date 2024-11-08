@@ -12,7 +12,7 @@ const users = [
         age: '46',
         fav_music: {
             bands: [
-                'Band 1', 'Band 2', 'Band 3', 'Band 4'
+                'Black Veil Brides', 'Bring me the Horizon', 'Get Scared', 'The Word Alive'
             ]
         }
     },
@@ -23,7 +23,7 @@ const users = [
         age: '23',
         fav_music: {
             bands: [
-               'Band 1', 'Band 2', 'Band 3', 'Band 4'
+               'Bad Bunny', 'Danny Flow', 'Don Omar', 'Travis Scott'
             ]
         }
     },
@@ -35,35 +35,43 @@ const users = [
         age: '23',
         fav_music: {
             bands: [
-               'Band 1', 'Band 2', 'Band 3', 'Band 4'
+               'Editors', 'System of a Down', 'Camaron de la Isla', 'Elsiane'
             ]
         }
     }
 ]
 
-function createCard(user)
+
+function generateListBand(user) //esta función genera la lista de bandas del usuario 
+{
+    return user.fav_music.bands.map(band => {
+        const item = document.createElement("li");
+        item.textContent = band; 
+        return item;
+    });
+}
+
+function createCard(user) //esta función crea las tarjetas de los usarios, en estas se crean elementos HTML para poder imprimir en la página. 
 {
     const card = document.createElement("div");
-    //const image = document.createElement("img");
+    const image = document.createElement("img");
     const userName = document.createElement("h3");
     const description = document.createElement("p");
     const age = document.createElement("p");
     const bands = document.createElement("ul");
 
-    const bandList = user.fav_music.bands.map(e => {
-        const item = document.createElement("li");
-        item.textContent = e; 
-        return item;
-    });
 
-    userName.textContent = user.user_name;
+    const bandList = generateListBand(user); //
+    image.src = IMAGE_URL; //mando llamar mi contante global dandole un atributo de enlace a mi variable 
+
+    userName.textContent = user.user_name; //agrego texto dentro de mis etiquetas, en este caso obtengo el noimbre de usuario, su descripción y edad
     description.textContent = user.description;
     age.textContent = user.age;
 
-    bands.append(...bandList);
-    card.append(userName, description, age, bands);
+    bands.append(...bandList); //con mi .append puedo agregar elementos a mis etiquetas 
+    card.append(userName, image, description, age, bands); //con esto agrego estas etiquetas dento de la etiqueta card que es un div
     
-    CARD_CONTAINER.append(card);
+    CARD_CONTAINER.append(card); // Se agrega a la página a travez del container que está en el html como etiqueta 
 }
 
 users.forEach(user => createCard(user));
